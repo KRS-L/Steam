@@ -4,8 +4,9 @@
 // @namespace steam_inventory_to_subid
 // @include http*://steamcommunity.com/id/*/inventory*
 // @include http*://steamcommunity.com/profiles/*/inventory*
-// @version 1.0
+// @version 1.1
 // @author KRS_L
+// @grant none
 // ==/UserScript==
 
 window.addEventListener('load', function () {
