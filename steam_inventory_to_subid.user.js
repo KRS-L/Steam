@@ -4,7 +4,7 @@
 // @namespace steam_inventory_to_subid
 // @include http*://steamcommunity.com/id/*/inventory*
 // @include http*://steamcommunity.com/profiles/*/inventory*
-// @version 1.1
+// @version 1.2
 // @author KRS_L
 // @grant none
 // ==/UserScript==
@@ -46,14 +46,19 @@ window.addEventListener('load', function () {
 				for (var i in giftInventory) {
 					var giftID = giftInventory[i].id;
 					var descriptions = giftInventory[i].descriptions;
-					if (typeof giftInventory[giftID].descriptions.last().enabled == 'undefined') {
-						giftInventory[giftID].descriptions.push({
-							type : "html",
-							enabled : true,
-							value : "<p><a title=\"Steam Database\" class=\"btn_small btn_grey_white_innerfade\" href=\"javascript:getSteamDB('" + giftID + "');\"><img id=\"steamdbicon" + giftID + "\" style=\"width:30px;height:30px;vertical-align:middle\" src=\"" + steamdbIcon + "\">&nbsp;SteamDB&nbsp;</a>"
-						});
+					var contextID = giftInventory[i].contextid;
+					if (contextID == "1") {
+						if (giftInventory[giftID].descriptions == "")
+							giftInventory[giftID].descriptions = [];
+						if (giftInventory[giftID].descriptions.length == 0 || typeof giftInventory[giftID].descriptions.last().enabled == 'undefined') {
+							giftInventory[giftID].descriptions.push({
+								type : "html",
+								enabled : true,
+								value : "<p><a title=\"Steam Database\" class=\"btn_small btn_grey_white_innerfade\" href=\"javascript:getSteamDB('" + giftID + "');\"><img id=\"steamdbicon" + giftID + "\" style=\"width:30px;height:30px;vertical-align:middle\" src=\"" + steamdbIcon + "\">&nbsp;SteamDB&nbsp;</a>"
+							});
+						}
 					}
-					if (giftInventory[i].pos == 1) {
+					if (giftInventory[i].pos == 1 && contextID == "1") {
 						$('iteminfo1_item_descriptors').innerHTML += "<div class=\"descriptor\"><p><a title=\"Steam Database\" class=\"btn_small btn_grey_white_innerfade\" href=\"javascript:getSteamDB('" + giftID + "');\"><img id=\"steamdbicon" + giftID + "\" style=\"width:30px;height:30px;vertical-align:middle\" src=\"" + steamdbIcon + "\">&nbsp;SteamDB&nbsp;</a></p></div>";
 					}
 				}
